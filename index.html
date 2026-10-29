@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Poultry Palace</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--b:#0a0a0a;--p:#ff3e9d;--w:#f5f5f5;--g:#888;--c:#1a1a1a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Poppins,sans-serif;background:var(--b);color:var(--w)}
+nav{position:sticky;top:0;background:rgba(10,10,10,.9);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
+.logo{font-size:22px;font-weight:700}.logo span{color:var(--p)}
+.hero{padding:60px 20px;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(255,62,157,.2),transparent 70%)}
+.hero h1{font-size:40px;margin-bottom:12px}.hero h1 span{color:var(--p)}
+.hero p{color:var(--g);margin-bottom:24px}
+.btn{background:var(--p);color:#fff;padding:12px 28px;border:none;border-radius:30px;font-weight:600;cursor:pointer}
+section{padding:50px 20px}
+.container{max-width:1000px;margin:0 auto}
+h2{font-size:28px;margin-bottom:20px;text-align:center}h2 span{color:var(--p)}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cat{background:var(--c);border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid #222}
+.cat img{height:160px;width:100%;object-fit:cover}
+.cat div{padding:14px}.cat h3{font-size:16px;margin-bottom:4px}.cat p{color:var(--g);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--c);border-radius:16px;overflow:hidden;border:1px solid #222}
+.card img{height:150px;width:100%;object-fit:cover}
+.card div{padding:14px}.card h3{font-size:15px}.card .b{color:var(--p);font-size:12px;margin:4px 0}
+.price{color:var(--p);font-weight:700;margin:8px 0}
+.card button{background:transparent;border:1px solid var(--p);color:var(--p);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px}
+.filters{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.filters button{background:var(--c);color:var(--w);border:1px solid #333;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:13px}
+.filters button.active{background:var(--p);border-color:var(--p)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+.modal.show{display:flex}
+.mc{background:var(--c);border-radius:16px;max-width:420px;width:100%;padding:24px;position:relative}
+.mc img{width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:12px}
+.close{position:absolute;top:10px;right:14px;background:var(--p);color:#fff;border:none;width:30px;height:30px;border-radius:50%;cursor:pointer}
+footer{text-align:center;padding:24px;color:var(--g);border-top:1px solid #222;font-size:13px}
+@media(max-width:600px){.cats,.grid{grid-template-columns:1fr}.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+<nav><div class="logo">CLOUIE <span>PoultryPalace</span></div><button class="btn" style="padding:8px 16px;font-size:13px">Cart</button></nav>
+<section class="hero"><h1>Farm-Fresh <span>Chickens</span></h1><p>Premium poultry delivered to your door.</p><button class="btn">Shop Now</button></section>
+<section><div class="container"><h2>Categories</h2><div class="cats">
+<div class="cat" onclick="f('4 months')"><img src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&q=70"><div><h3>4 Months</h3><p>Tender, great for grilling.</p></div></div>
+<div class="cat" onclick="f('5 months')"><img src="https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=400&q=70"><div><h3>5 Months</h3><p>Best seller, balanced flavor.</p></div></div>
+<div class="cat" onclick="f('6 months')"><img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=400&q=70"><div><h3>6+ Months</h3><p>Rich flavor for stews.</p></div></div>
+</div></div></section>
+<section style="background:#141414"><div class="container"><h2>Products</h2>
+<div class="filters">
+<button class="active" onclick="f('all')">All</button>
+<button onclick="f('4 months')">4M</button>
+<button onclick="f('5 months')">5M</button>
+<button onclick="f('6 months')">6M+</button>
+</div>
+<div class="grid" id="g"></div></div></section>
+<footer>&copy; 2026 CLOUIE Poultry Palace</footer>
+<div class="modal" id="m"><div class="mc"><button class="close" onclick="cm()">&times;</button><img id="mi"><h3 id="mn"></h3><div class="b" id="mb"></div><p id="md" style="color:var(--g);font-size:13px;margin:8px 0"></p><p id="mm" style="font-size:13px"></p><div class="price" id="mp"></div><button class="btn" style="width:100%;margin-top:10px">Add to Cart</button></div></div>
+<script>
+const P=[
+{id:1,n:"Young Broiler",a:"4 months",c:"4 months",b:"Cornish Cross",p:727.44,w:"1.8kg",ch:"Tender",av:"In Stock",img:"https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&q=70",d:"Tender bird for grilling."},
+{id:2,n:"Golden Hen",a:"4 months",c:"4 months",b:"Rhode Island Red",p:812.00,w:"2.0kg",ch:"Rich flavor",av:"In Stock",img:"https://images.unsplash.com/photo-1518492104633-130d0cc84637?w=400&q=70",d:"Golden plumage hen."},
+{id:3,n:"Country Rooster",a:"5 months",c:"5 months",b:"Leghorn",p:951.44,w:"2.4kg",ch:"Lean",av:"In Stock",img:"https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=400&q=70",d:"Classic country rooster."},
+{id:4,n:"Farm Classic",a:"5 months",c:"5 months",b:"Plymouth Rock",p:980.00,w:"2.6kg",ch:"Meaty",av:"Low Stock",img:"https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=400&q=70",d:"Well-rounded bird."},
+{id:5,n:"Heritage Hen",a:"6 months",c:"6 months",b:"Orpington",p:1231.44,w:"3.0kg",ch:"Succulent",av:"In Stock",img:"https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&q=70",d:"Heritage breed."},
+{id:6,n:"Old Timer",a:"6+ months",c:"6 months",b:"Brahma",p:1399.44,w:"3.5kg",ch:"Full-bodied",av:"Out of Stock",img:"https://images.unsplash.com/photo-1518492104633-130d0cc84637?w=400&q=70",d:"Mature robust bird."}
+];
+function r(l){document.getElementById('g').innerHTML=l.map(p=>`<div class="card"><img src="${p.img}"><div><h3>${p.n}</h3><div class="b">${p.b} • ${p.a}</div><div style="color:var(--g);font-size:12px">${p.d}</div><div class="price">₱${p.p.toFixed(2)}</div><button onclick="o(${p.id})">Details</button></div></div>`).join('')}
+function f(c){document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');r(c==='all'?P:P.filter(p=>p.c===c));if(c!=='all')document.querySelector('#g').scrollIntoView({behavior:'smooth'})}
+function o(id){const p=P.find(x=>x.id===id);document.getElementById('mi').src=p.img;document.getElementById('mn').textContent=p.n;document.getElementById('mb').textContent=p.b+' • '+p.a;document.getElementById('md').textContent=p.d;document.getElementById('mm').innerHTML=`Weight: ${p.w} | ${p.ch} | ${p.av}`;document.getElementById('mp').textContent='₱'+p.p.toFixed(2);document.getElementById('m').classList.add('show')}
+function cm(){document.getElementById('m').classList.remove('show')}
+r(P);
+</script>
+</body>
+</html>
